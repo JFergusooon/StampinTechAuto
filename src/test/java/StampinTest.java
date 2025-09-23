@@ -2,15 +2,11 @@ import Components.*;
 import Pages.*;
 import SeleniumSetup.DriverManager;
 import SeleniumSetup.SeleniumActions;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
-
-import java.sql.Driver;
+import org.testng.annotations.*;
 
 public class StampinTest {
 
-    @BeforeSuite
+    @BeforeTest
     public void beforeSuite() {
         DriverManager.startDriver();
     }
@@ -35,6 +31,10 @@ public class StampinTest {
         RewardsPopup rewardsPopup = new RewardsPopup();
         rewardsPopup.clickMaybeLaterButton();
         rewardsPopup.clickCloseButton();
+
+        landingPage.clickHelloUserButton();
+        landingPage.clickSignOutButton();
+
     }
 
     @Test
@@ -70,8 +70,8 @@ public class StampinTest {
         Thread.sleep(10000);
     }
 
-    @AfterSuite
-    public static void tearDown() {
+    @AfterTest
+    public static void afterTest() throws InterruptedException {
         DriverManager.quitDriver();
     }
 }

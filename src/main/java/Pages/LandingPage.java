@@ -38,4 +38,11 @@ public class LandingPage extends SeleniumActions {
         accountSettingButton.click();
         testStepLog("Account Setting clicked.");
     }
+
+    public void clickSignOutButton() {
+        testStepStartLog("Clicking 'Sign Out' Button");
+        WebElement signOutButton = DriverManager.getDriver().findElement(By.xpath(signOutXPath));
+        signOutButton.click();
+        testStepLog("Sign Out Button clicked.");
+    }
 }
