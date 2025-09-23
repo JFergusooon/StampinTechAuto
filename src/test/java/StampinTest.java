@@ -15,6 +15,28 @@ public class StampinTest {
         DriverManager.startDriver();
     }
 
+    @Test(enabled = true)
+    public static void happyPathNewCustomerTest() throws InterruptedException {
+        SeleniumActions.initDriver();
+        //Manual Authentication Check
+        Thread.sleep(20000);
+
+        //TEST START
+        LandingPage landingPage = new LandingPage();
+        landingPage.clickSignInButton();
+
+
+        LoginPopup loginPopup = new LoginPopup();
+        loginPopup.clickCreateAccountButton();
+        loginPopup.fillNewCustomerForm();
+        loginPopup.clickCreateAccountSubmitButton();
+
+
+        RewardsPopup rewardsPopup = new RewardsPopup();
+        rewardsPopup.clickMaybeLaterButton();
+        rewardsPopup.clickCloseButton();
+    }
+
     @Test
     public static void newCustomerTest() throws InterruptedException {
         SeleniumActions.initDriver();
@@ -23,20 +45,28 @@ public class StampinTest {
 
         //TEST START
         LandingPage landingPage = new LandingPage();
-        landingPage.clickSignInButton(DriverManager.getDriver());
+        landingPage.clickSignInButton();
 
 
         LoginPopup loginPopup = new LoginPopup();
-        loginPopup.clickCreateAccountButton(DriverManager.getDriver());
-        loginPopup.fillNewCustomerForm(DriverManager.getDriver());
-        loginPopup.clickCreateAccountSubmitButton(DriverManager.getDriver());
+        loginPopup.clickCreateAccountButton();
+        loginPopup.fillNewCustomerForm();
+        loginPopup.clickCreateAccountSubmitButton();
 
 
         RewardsPopup rewardsPopup = new RewardsPopup();
         rewardsPopup.clickMaybeLaterButton();
         rewardsPopup.clickCloseButton();
 
+        landingPage.clickHelloUserButton();
+        landingPage.clickAccountSettingButton();
 
+        MyAccountPage myAccountPage = new MyAccountPage();
+        myAccountPage.clickOnAddressesTab();
+
+        myAccountPage.fillSubmitAndVerifyNewAddressForm();
+
+        myAccountPage.clickOnAddressesTab();
         Thread.sleep(10000);
     }
 

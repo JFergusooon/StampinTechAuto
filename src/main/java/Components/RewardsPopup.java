@@ -2,6 +2,7 @@ package Components;
 
 import SeleniumSetup.DriverManager;
 import SeleniumSetup.SeleniumActions;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -21,19 +22,21 @@ public class RewardsPopup extends SeleniumActions {
         } catch(Exception e){
             testStepErrorLog("Failed to click 'Get Started' Button");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
     }
 
     public void clickMaybeLaterButton() throws InterruptedException {
         testStepStartLog("Clicking 'Maybe Later' Button");
         try {
-            Thread.sleep(8000);
+            Thread.sleep(5000);
             waitForElementToBeVisible(maybeLaterButtonXPath);
             click(maybeLaterButtonXPath);
             testStepLog("'Maybe Later' Button successfully clicked");
         } catch(Exception e){
             testStepErrorLog("Failed to click 'Maybe Later' Button");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
     }
 
@@ -47,19 +50,21 @@ public class RewardsPopup extends SeleniumActions {
         } catch(Exception e){
             testStepErrorLog("Failed to click 'X' Button");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
     }
 
     public void clickCloseButton() throws InterruptedException {
         testStepStartLog("Clicking 'Close' Button");
         try {
-            Thread.sleep(8000);
+            Thread.sleep(5000);
             waitForElementToBeVisible(closeButtonXPath);
             click(closeButtonXPath);
             testStepLog("'Close' Button successfully clicked");
         } catch(Exception e){
             testStepErrorLog("Failed to click 'Close' Button");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
     }
 }

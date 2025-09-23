@@ -1,7 +1,7 @@
 package Pages;
+import SeleniumSetup.DriverManager;
 import SeleniumSetup.SeleniumActions;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class LandingPage extends SeleniumActions {
     public String signInButtonXPath = "//button[@data-testid='menu-user-btn-signin']";
@@ -18,11 +18,24 @@ public class LandingPage extends SeleniumActions {
     public String rewardsXPath = "//*[@data-testid='account-link'][8]";
     public String signOutXPath = "//*[@data-testid='auth-logout']";
 
-    public void clickSignInButton(ChromeDriver driver) {
+    public void clickSignInButton() {
         testStepStartLog("Clicking 'Sign In' Button");
-        WebElement signInButton = driver.findElement(By.xpath(signInButtonXPath));
+        WebElement signInButton = DriverManager.getDriver().findElement(By.xpath(signInButtonXPath));
         signInButton.click();
-
         testStepLog("SignIn Button successfully clicked.");
+    }
+
+    public void clickHelloUserButton() {
+        testStepStartLog("Clicking 'Hello User' Button");
+        WebElement helloUserButton = DriverManager.getDriver().findElement(By.xpath(helloUserXPath));
+        helloUserButton.click();
+        testStepLog("Hello User clicked.");
+    }
+
+    public void clickAccountSettingButton() {
+        testStepStartLog("Clicking 'Account Setting' Button");
+        WebElement accountSettingButton = DriverManager.getDriver().findElement(By.xpath(accountSettingXPath));
+        accountSettingButton.click();
+        testStepLog("Account Setting clicked.");
     }
 }

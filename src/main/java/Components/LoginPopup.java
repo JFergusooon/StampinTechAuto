@@ -2,11 +2,9 @@ package Components;
 
 import SeleniumSetup.DriverManager;
 import SeleniumSetup.SeleniumActions;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.sql.Driver;
 
 public class LoginPopup extends SeleniumActions {
     private String userNameXPath = "//*[@data-testid='auth-email']";
@@ -22,7 +20,15 @@ public class LoginPopup extends SeleniumActions {
     private String regCreateNewAccountSubmitXPath = "//*[@data-testid='reg-submit']";
 
     public void enterUserName(String userName) {
-        enterText(userName, userNameXPath);
+        testStepStartLog("Entering user name");
+        try {
+            enterText(userName, userNameXPath);
+            testStepStartLog("username entered successfully");
+        } catch (Exception e) {
+            testStepStartLog("username entered failed");
+            DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
+        }
     }
 
     public void enterPassword(String password) {
@@ -33,6 +39,7 @@ public class LoginPopup extends SeleniumActions {
         } catch (Exception e) {
             testStepErrorLog("Failed to enter password text");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
 
     }
@@ -46,6 +53,7 @@ public class LoginPopup extends SeleniumActions {
         } catch (Exception e) {
             testStepErrorLog("Failed to enter first name");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
     }
 
@@ -58,6 +66,7 @@ public class LoginPopup extends SeleniumActions {
         } catch (Exception e) {
             testStepErrorLog("Failed to enter last name");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
 
     }
@@ -71,6 +80,7 @@ public class LoginPopup extends SeleniumActions {
         } catch (Exception e) {
             testStepErrorLog("Failed to enter email");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
 
     }
@@ -84,6 +94,7 @@ public class LoginPopup extends SeleniumActions {
         } catch (Exception e) {
             testStepErrorLog("Failed to enter password");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
     }
 
@@ -96,36 +107,38 @@ public class LoginPopup extends SeleniumActions {
         } catch (Exception e) {
             testStepErrorLog("Failed to enter confirm password");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
     }
 
 
-    public void clickSignInButton(ChromeDriver driver) {
+    public void clickSignInButton() {
         testStepStartLog("Clicking sign in button");
         try {
-            WebElement signInButton = driver.findElement(By.xpath(signInButtonXPath));
+            WebElement signInButton = DriverManager.getDriver().findElement(By.xpath(signInButtonXPath));
             signInButton.click();
             testStepLog("Sign in button clicked");
         } catch (Exception e) {
             testStepErrorLog("Failed to click sign in button");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
     }
 
-    public void signInWithUser(ChromeDriver driver, String username, String password) {
+    public void signInWithUser(String username, String password) {
         enterUserName(username);
         enterPassword(password);
-        clickSignInButton(driver);
+        clickSignInButton();
     }
 
 
     // New User / Register Flow
-    public void clickCreateAccountButton(ChromeDriver driver) throws InterruptedException {
+    public void clickCreateAccountButton() throws InterruptedException {
         testStepStartLog("Clicking create account button");
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             testStepLog("Element is visible");
-            WebElement createAccountButton = driver.findElement(By.xpath(regCreateNewAccountXPath));
+            WebElement createAccountButton = DriverManager.getDriver().findElement(By.xpath(regCreateNewAccountXPath));
             createAccountButton.click();
 
             SeleniumActions.waitForElementToBeVisible(regFirstNameXPath);
@@ -133,10 +146,11 @@ public class LoginPopup extends SeleniumActions {
         } catch (Exception e) {
             testStepErrorLog("Failed to click create account button");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
     }
 
-    public void fillNewCustomerForm(ChromeDriver driver) {
+    public void fillNewCustomerForm() {
         testStepStartLog("Filling new customer form");
         try {
             String newFirstName = java.util.UUID.randomUUID().toString().replace("-", "").substring(0, 2);
@@ -153,18 +167,20 @@ public class LoginPopup extends SeleniumActions {
         }  catch (Exception e) {
             testStepErrorLog("Failed to fill new customer form");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
     }
 
-    public void clickCreateAccountSubmitButton(ChromeDriver driver) {
+    public void clickCreateAccountSubmitButton() {
         testStepStartLog("Clicking create account button");
         try {
-            WebElement createNewAccountSubmitButton = driver.findElement(By.xpath(regCreateNewAccountSubmitXPath));
+            WebElement createNewAccountSubmitButton = DriverManager.getDriver().findElement(By.xpath(regCreateNewAccountSubmitXPath));
             createNewAccountSubmitButton.click();
             testStepLog("Create account button clicked");
         }  catch (Exception e) {
             testStepErrorLog("Failed to click create account button");
             DriverManager.quitDriver();
+            Assert.fail(e.getMessage());
         }
 
     }
