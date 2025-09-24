@@ -8,7 +8,8 @@ import org.openqa.selenium.WebElement;
 
 public class LoginPopup extends SeleniumActions {
     private String userNameXPath = "//*[@data-testid='auth-email']";
-    private String passwordXPath = "//*[@data-testid='auth-password']";
+    private String passwordXPath = "//span[@data-testid='auth-password']";
+    private String actualPasswordXPath = "//input[@data-testid='auth-password']";
 
     private String regPasswordXPath = "//input[@data-testid='reg-password']";
     private String regFirstNameXPath = "//*[@data-testid='reg-first-name']";
@@ -23,7 +24,7 @@ public class LoginPopup extends SeleniumActions {
         testStepStartLog("Entering user name");
         try {
             enterText(userName, userNameXPath);
-            testStepStartLog("username entered successfully");
+            testStepLog("username entered successfully");
         } catch (Exception e) {
             testStepStartLog("username entered failed");
             DriverManager.quitDriver();
@@ -34,7 +35,8 @@ public class LoginPopup extends SeleniumActions {
     public void enterPassword(String password) {
         testStepStartLog("Entering password: " + password);
         try {
-            enterText(password, passwordXPath);
+            doubleClick(passwordXPath);
+            enterText(password, actualPasswordXPath);
             testStepLog("Password entered successfully");
         } catch (Exception e) {
             testStepErrorLog("Failed to enter password text");
@@ -136,7 +138,7 @@ public class LoginPopup extends SeleniumActions {
     public void clickCreateAccountButton() throws InterruptedException {
         testStepStartLog("Clicking create account button");
         try {
-            Thread.sleep(3000);
+            Thread.sleep(5000);
             testStepLog("Element is visible");
             WebElement createAccountButton = DriverManager.getDriver().findElement(By.xpath(regCreateNewAccountXPath));
             createAccountButton.click();

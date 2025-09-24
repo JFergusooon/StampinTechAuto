@@ -25,8 +25,9 @@ public class LandingPage extends SeleniumActions {
         testStepLog("SignIn Button successfully clicked.");
     }
 
-    public void clickHelloUserButton() {
+    public void clickHelloUserButton() throws InterruptedException {
         testStepStartLog("Clicking 'Hello User' Button");
+        Thread.sleep(2000);
         WebElement helloUserButton = DriverManager.getDriver().findElement(By.xpath(helloUserXPath));
         helloUserButton.click();
         testStepLog("Hello User clicked.");

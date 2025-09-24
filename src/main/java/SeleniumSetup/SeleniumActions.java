@@ -33,6 +33,11 @@ public class SeleniumActions{
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
     }
 
+    public static void waitForElementToBeEditable(String xpath) throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(10));
+        Boolean element = wait.until(ExpectedConditions.elementToBeSelected(By.xpath(xpath)));
+    }
+
     public static void testStepStartLog(String message) {
         System.out.println("STEP X: " + message);
     }
@@ -43,5 +48,19 @@ public class SeleniumActions{
 
     public static void testStepErrorLog(String message) {
         System.out.println("!!!!  ERROR: " + message);
+    }
+
+    public static void setElementValue(String xpath, String value) {
+        WebElement element = DriverManager.getDriver().findElement(By.xpath(xpath));
+        element.sendKeys("value", value);
+    }
+
+    public static String getElementText(String xpath) {
+        return DriverManager.getDriver().findElement(By.xpath(xpath)).getText();
+    }
+
+    public static void clearElementText(String xpath) {
+        WebElement element = DriverManager.getDriver().findElement(By.xpath(xpath));
+        element.clear();
     }
 }
