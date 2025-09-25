@@ -20,30 +20,50 @@ public class LandingPage extends SeleniumActions {
 
     public void clickSignInButton() {
         testStepStartLog("Clicking 'Sign In' Button");
-        WebElement signInButton = DriverManager.getDriver().findElement(By.xpath(signInButtonXPath));
-        signInButton.click();
-        testStepLog("SignIn Button successfully clicked.");
+        try {
+            WebElement signInButton = DriverManager.getDriver().findElement(By.xpath(signInButtonXPath));
+            signInButton.click();
+            testStepLog("SignIn Button successfully clicked.");
+        } catch (Exception e) {
+            testStepLog("SignIn Button failed.");
+            DriverManager.quitDriver();
+        }
     }
 
     public void clickHelloUserButton() throws InterruptedException {
         testStepStartLog("Clicking 'Hello User' Button");
-        Thread.sleep(2000);
-        WebElement helloUserButton = DriverManager.getDriver().findElement(By.xpath(helloUserXPath));
-        helloUserButton.click();
-        testStepLog("Hello User clicked.");
+        try {
+            Thread.sleep(5000);
+            WebElement helloUserButton = DriverManager.getDriver().findElement(By.xpath(helloUserXPath));
+            helloUserButton.click();
+            testStepLog("Hello User clicked.");
+        } catch (Exception e) {
+            testStepErrorLog("Failed to Click Hello User button.");
+            DriverManager.quitDriver();
+        }
     }
 
     public void clickAccountSettingButton() {
         testStepStartLog("Clicking 'Account Setting' Button");
-        WebElement accountSettingButton = DriverManager.getDriver().findElement(By.xpath(accountSettingXPath));
-        accountSettingButton.click();
-        testStepLog("Account Setting clicked.");
+        try {
+            WebElement accountSettingButton = DriverManager.getDriver().findElement(By.xpath(accountSettingXPath));
+            accountSettingButton.click();
+            testStepLog("Account Setting clicked.");
+        } catch (Exception e) {
+            testStepErrorLog("Failed to Click Account Setting button.");
+            DriverManager.quitDriver();
+        }
     }
 
     public void clickSignOutButton() {
         testStepStartLog("Clicking 'Sign Out' Button");
-        WebElement signOutButton = DriverManager.getDriver().findElement(By.xpath(signOutXPath));
-        signOutButton.click();
-        testStepLog("Sign Out Button clicked.");
+        try {
+            WebElement signOutButton = DriverManager.getDriver().findElement(By.xpath(signOutXPath));
+            signOutButton.click();
+            testStepLog("Sign Out Button clicked.");
+        }   catch (Exception e) {
+            testStepErrorLog("Sign Out Button clicked failed.");
+            DriverManager.getDriver().quit();
+        }
     }
 }

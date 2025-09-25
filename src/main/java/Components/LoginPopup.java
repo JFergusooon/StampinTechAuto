@@ -7,10 +7,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class LoginPopup extends SeleniumActions {
+    //Login XPaths
     private String userNameXPath = "//*[@data-testid='auth-email']";
     private String passwordXPath = "//span[@data-testid='auth-password']";
     private String actualPasswordXPath = "//input[@data-testid='auth-password']";
 
+    //Register XPaths
     private String regPasswordXPath = "//input[@data-testid='reg-password']";
     private String regFirstNameXPath = "//*[@data-testid='reg-first-name']";
     private String regLastNameXPath = "//*[@data-testid='reg-last-name']";
@@ -113,7 +115,6 @@ public class LoginPopup extends SeleniumActions {
         }
     }
 
-
     public void clickSignInButton() {
         testStepStartLog("Clicking sign in button");
         try {
@@ -132,7 +133,6 @@ public class LoginPopup extends SeleniumActions {
         enterPassword(password);
         clickSignInButton();
     }
-
 
     // New User / Register Flow
     public void clickCreateAccountButton() throws InterruptedException {

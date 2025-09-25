@@ -5,17 +5,15 @@ import SeleniumSetup.SeleniumActions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
-import javax.swing.plaf.nimbus.State;
 import java.util.Objects;
 
 public class MyAccountPage extends SeleniumActions {
     private String navigationAddressesXPath = "//span[text()='Addresses']";
     private String navigationAccountSettingsXPath = "//span[text()='Account Settings']";
+
     //AddressPage
     private String defaultShippingEditButtonXPath = "(//a[@data-testid='addresslist-item-btn-edit'])[1]";
     private String defaultMailingEditButtonXPath = "(//a[@data-testid='addresslist-item-btn-edit'])[2]";
-
     private String firstNameXPath = "//input[@data-testid='address-field-first-name']";
     private String lastNameXPath = "//input[@data-testid='address-field-last-name']";
     private String addressOneXPath = "//input[@data-testid='address.addressLine1']";
@@ -43,6 +41,7 @@ public class MyAccountPage extends SeleniumActions {
         try {
             WebElement addressesTab = DriverManager.getDriver().findElement(By.xpath(navigationAddressesXPath));
             addressesTab.click();
+            Thread.sleep(5000);
             testStepLog("Addresses Tab button clicked");
         } catch (Exception e) {
             testStepErrorLog("Failed to click Addresses Tab");
@@ -176,7 +175,7 @@ public class MyAccountPage extends SeleniumActions {
         }
     }
 
-    public void clickOnDefaultShipping() {
+    public void clickOnDefaultShippingCheckBox() {
         testStepStartLog("Clicking on Default Shipping");
         try {
             WebElement element = DriverManager.getDriver().findElement(By.xpath(defaultShippingXPath));
@@ -189,7 +188,7 @@ public class MyAccountPage extends SeleniumActions {
         }
     }
 
-    public void clickOnDefaultMailing() {
+    public void clickOnDefaultMailingCheckBox() {
         testStepStartLog("Clicking on Default Mailing");
         try {
             WebElement element = DriverManager.getDriver().findElement(By.xpath(defaultMailingXPath));
@@ -208,8 +207,6 @@ public class MyAccountPage extends SeleniumActions {
             WebElement element = DriverManager.getDriver().findElement(By.xpath(saveAddressButtonXPath));
             element.click();
             testStepLog("Save Address Button clicked");
-
-
         } catch (Exception e) {
             testStepErrorLog("Failed to click Save Address Button");
             DriverManager.quitDriver();
@@ -373,84 +370,107 @@ public class MyAccountPage extends SeleniumActions {
         }
     }
 
-    public void editAddressSaveAndVerify() {
-        String curShippingFirstName = getElementText("//div[@data-testid='address-list-default']//div[@data-testid='addresslist-row-0']").split(" ")[0];
-        String curShippingLastName = getElementText("//div[@data-testid='address-list-default']//div[@data-testid='addresslist-row-0']").split(" ")[1];
-        String curShippingAddressOne = getElementText("//div[@data-testid='address-list-default']//div[@data-testid='addresslist-row-1']");
-        String curShippingCityStateZip = getElementText("//div[@data-testid='address-list-default']//div[@data-testid='addresslist-row-3']");
-        String curShippingPhoneNumber = getElementText("//div[@data-testid='addresslist-item-phone']");
+    public void editAddressSaveAndVerify() throws InterruptedException {
+        testStepStartLog("Editing Address, Saving, and Verifying Page Persistence");
+        try {
+            String curShippingFirstName = getElementText("//div[@data-testid='address-list-default']//div[@data-testid='addresslist-row-0']").split(" ")[0];
+            String curShippingLastName = getElementText("//div[@data-testid='address-list-default']//div[@data-testid='addresslist-row-0']").split(" ")[1];
+            String curShippingAddressOne = getElementText("//div[@data-testid='address-list-default']//div[@data-testid='addresslist-row-1']");
+            String curShippingAddressTwo = getElementText("//div[@data-testid='address-list-default']//div[@data-testid='addresslist-row-2']");
+            String curShippingCityStateZip = getElementText("//div[@data-testid='address-list-default']//div[@data-testid='addresslist-row-3']");
+            String curShippingPhoneNumber = getElementText("//div[@data-testid='addresslist-item-phone']");
 
-        clickEditUnderShippingAddress();
+            clickEditUnderShippingAddress();
 
+            String newFirstName = java.util.UUID.randomUUID().toString().replace("-", "").substring(0, 5);
+            String newLastName = java.util.UUID.randomUUID().toString().replace("-", "").substring(0, 5);
 
-        String newFirstName = java.util.UUID.randomUUID().toString().replace("-", "").substring(0, 5);
-        String newLastName = java.util.UUID.randomUUID().toString().replace("-", "").substring(0, 5);
+            clearShippingAddressForm();
 
-        clearShippingAddressForm();
+            enterFirstName(newFirstName);
+            enterLastName(newLastName);
+            enterAddressOne("567 South Street");
+            enterAddressTwo("Apt 123");
+            enterCity("Oak Ridge");
+            enterState("TN");
+            enterZipCode("37830");
+            enterPhoneNumber("(222) 222 - 2222");
 
-        enterFirstName(newFirstName);
-        enterLastName(newLastName);
-        enterAddressOne("567 South Street");
-        enterCity("Oak Ridge");
-        enterState("TN");
-        enterZipCode("37830");
-        enterPhoneNumber("(222) 222 - 2222)");
+            clickOnSaveAddressButton();
 
-        clickOnSaveAddressButton();
+            verifyDefaultShippingAddress(newFirstName, newLastName, "567 South Street", "Apt 123", "Oak Ridge", "TN", "37830", "(222) 222 - 2222");
 
-        verifyDefaultShippingAddress(newFirstName, newLastName, "567 South Street", "", "Oak Ridge", "TN", "37830", "(222) 222 - 2222)");
+            clickOnAccountSettingsTab();
+            clickOnAddressesTab();
 
-        clickOnAccountSettingsTab();
-        clickOnAddressesTab();
+            verifyDefaultShippingAddress(newFirstName, newLastName, "567 South Street", "Apt 123", "Oak Ridge", "TN", "37830", "(222) 222 - 2222");
 
-        verifyDefaultShippingAddress(newFirstName, newLastName, "567 South Street", "", "Oak Ridge", "TN", "37830", "(222) 222 - 2222)");
-
-        //Edit
-        clickEditUnderShippingAddress();
-        fillSubmitAndVerifyNewAddressForm();
-        //Revert
-        clearShippingAddressForm();
-        fillShippingAddressForm(curShippingFirstName, curShippingLastName, curShippingAddressOne, "", curShippingCityStateZip.split(" ")[0], curShippingCityStateZip.split(" ")[1], curShippingCityStateZip.split(" ")[2], curShippingPhoneNumber);
-        //Save
-        clickOnSaveAddressButton();
-        //Verify
-        verifyDefaultShippingAddress(curShippingFirstName, curShippingLastName, curShippingAddressOne, "", curShippingCityStateZip.split(" ")[0], curShippingCityStateZip.split(" ")[1], curShippingCityStateZip.split(" ")[2], curShippingPhoneNumber);
-
+            clickEditUnderShippingAddress();
+            clearShippingAddressForm();
+            fillShippingAddressForm(curShippingFirstName, curShippingLastName, curShippingAddressOne, curShippingAddressTwo, curShippingCityStateZip.split(" ")[0] + " " + curShippingCityStateZip.split(" ")[1] + " " + curShippingCityStateZip.split(" ")[2], curShippingCityStateZip.split(" ")[3], curShippingCityStateZip.split(" ")[4], curShippingPhoneNumber);
+            clickOnSaveAddressButton();
+            verifyDefaultShippingAddress(curShippingFirstName, curShippingLastName, curShippingAddressOne, curShippingAddressTwo, curShippingCityStateZip.split(" ")[0] + " " + curShippingCityStateZip.split(" ")[1] + " " + curShippingCityStateZip.split(" ")[2], curShippingCityStateZip.split(" ")[3], curShippingCityStateZip.split(" ")[4], curShippingPhoneNumber);
+            testStepLog("Edit Address, save, and verify successfully completed. ");
+        } catch (Exception e) {
+            testStepErrorLog("EditAddress Failed");
+            DriverManager.quitDriver();
+            Assert.fail();
+        }
     }
 
-    public void clearShippingAddressForm() {
-        doubleClick(firstNameXPath);
-        clearElementText(firstNameXPath);
+    public void clearShippingAddressForm() throws InterruptedException {
+        testStepStartLog("Clearing Shipping Address Form");
+        try {
+            Thread.sleep(5000);
 
-        doubleClick(lastNameXPath);
-        clearElementText(lastNameXPath);
+            doubleClick(firstNameXPath);
+            clearElementText(firstNameXPath);
 
-        doubleClick(addressOneXPath);
-        clearElementText(addressOneXPath);
+            doubleClick(lastNameXPath);
+            clearElementText(lastNameXPath);
 
-        doubleClick(addressTwoXPath);
-        clearElementText(addressTwoXPath);
+            doubleClick(addressOneXPath);
+            clearElementText(addressOneXPath);
 
-        doubleClick(cityXPath);
-        clearElementText(cityXPath);
-        doubleClick(stateXPath);
-        clearElementText(stateXPath);
-        doubleClick(zipCodeXPath);
-        clearElementText(zipCodeXPath);
+            click(firstNameXPath);
+            doubleClick(addressTwoXPath);
+            clearElementText(addressTwoXPath);
 
-        doubleClick(phoneNumberXPath);
-        clearElementText(phoneNumberXPath);
+            doubleClick(cityXPath);
+            clearElementText(cityXPath);
+            doubleClick(stateXPath);
+            clearElementText(stateXPath);
+            doubleClick(zipCodeXPath);
+            clearElementText(zipCodeXPath);
+
+            doubleClick(phoneNumberXPath);
+            clearElementText(phoneNumberXPath);
+            testStepLog("Shipping Address Form Cleared");
+        } catch (Exception e) {
+            testStepErrorLog("Failed to clear Shipping Address Form");
+            DriverManager.quitDriver();
+            Assert.fail();
+        }
+
     }
 
     public void fillShippingAddressForm(String firstName, String lastName, String addressOne, String addressTwo, String city, String state, String zipCode, String phoneNumber) {
-        enterFirstName(firstName);
-        enterLastName(lastName);
-        enterAddressOne(addressOne);
-        enterAddressTwo(addressTwo);
-        enterCity(city);
-        enterState(state);
-        enterZipCode(zipCode);
-        enterPhoneNumber(phoneNumber);
+        testStepStartLog("Filling Shipping Address Form");
+        try {
+            enterFirstName(firstName);
+            enterLastName(lastName);
+            enterAddressOne(addressOne);
+            enterAddressTwo(addressTwo);
+            enterCity(city);
+            enterState(state);
+            enterZipCode(zipCode);
+            enterPhoneNumber(phoneNumber);
+            testStepLog("Shipping Address Form Successfully Filled");
+        }  catch (Exception e) {
+            testStepErrorLog("Failed to fill Shipping Address Form");
+            DriverManager.quitDriver();
+            Assert.fail();
+        }
     }
 
     // Account Settings Page
@@ -460,6 +480,7 @@ public class MyAccountPage extends SeleniumActions {
         try {
             WebElement element = DriverManager.getDriver().findElement(By.xpath(navigationAccountSettingsXPath));
             element.click();
+            waitForElementToBeVisible("//div[@data-testid='account-card-contact']");
             testStepLog("Account Settings Tab clicked");
         } catch (Exception e) {
             testStepErrorLog("Failed to click Account Settings Tab");
@@ -488,7 +509,7 @@ public class MyAccountPage extends SeleniumActions {
             enterContact_MethodOfContact("Text Message");
             enterContact_BirthDate("");
 
-            clickSaveChangesButton();
+            clickOnSaveChangesButton();
             testStepLog("Contact Form Filled Successfully");
         } catch (Exception e) {
             testStepErrorLog("Failed to Fill Contact Form");
@@ -517,6 +538,7 @@ public class MyAccountPage extends SeleniumActions {
         try {
             waitForElementToBeVisible(contactLastNameXPath);
             doubleClick(contactLastNameXPath);
+            clearElementText(contactLastNameXPath);
             enterText(lastName, contactLastNameXPath);
             testStepLog("Contact Last Name entered successfully");
         } catch (Exception e) {
@@ -531,6 +553,7 @@ public class MyAccountPage extends SeleniumActions {
         try {
             waitForElementToBeVisible(contactEmailXPath);
             doubleClick(contactEmailXPath);
+            clearElementText(contactEmailXPath);
             enterText(email, contactEmailXPath);
             testStepLog("Contact Email entered successfully");
         } catch (Exception e) {
@@ -545,6 +568,7 @@ public class MyAccountPage extends SeleniumActions {
         try {
             waitForElementToBeVisible(contactPhoneNumberInputXPath);
             doubleClick(contactPhoneNumberInputXPath);
+            clearElementText(contactPhoneNumberInputXPath);
             enterText(phoneNumber, contactPhoneNumberInputXPath);
             testStepLog("Contact Phone Number entered successfully");
         } catch (Exception e) {
@@ -590,7 +614,7 @@ public class MyAccountPage extends SeleniumActions {
         }
     }
 
-    public void clickSaveChangesButton() {
+    public void clickOnSaveChangesButton() {
         testStepStartLog("Clicking on Save Changes Button");
         try {
             WebElement element = DriverManager.getDriver().findElement(By.xpath("//button[@data-testid='save-changes']"));
@@ -606,28 +630,43 @@ public class MyAccountPage extends SeleniumActions {
     public void editContactFormSaveAndVerify() {
         testStepStartLog("Editing Contact Form, Saving, and Verifying Update Persistance");
         try {
+            String curFirstName = getElementText("(//div[@data-testid='account-label-content'])[1]");
+            String curLastName = getElementText("(//div[@data-testid='account-label-content'])[2]");
+            String curEmail = getElementText("(//div[@data-testid='account-label-content'])[3]");
+            String curPhoneNumber = getElementText("(//div[@data-testid='account-label-content'])[4]");
+            String curMethodOfContact = getElementText("(//div[@data-testid='account-label-content'])[5]");
+
+            clickEditUnderContact();
+
             String firstName = java.util.UUID.randomUUID().toString().replace("-", "").substring(0, 5);;
             String lastName = java.util.UUID.randomUUID().toString().replace("-", "").substring(0, 5);;
             String email = java.util.UUID.randomUUID().toString().replace("-", "").substring(0, 4) + "@g.co";;
             String phoneNumber = "(222) 222 - 2222";
-            String methodOfContact = "Text Message";
-            String birthDate = "05 May";
+            String methodOfContact = "Email";
 
             enterContact_FirstName(firstName);
             enterContact_LastName(lastName);
             enterContact_Email(email);
             enterContact_PhoneNumber(phoneNumber);
             enterContact_MethodOfContact(methodOfContact);
-            enterContact_BirthDate("");
-            clickSaveChangesButton();
+            clickOnSaveChangesButton();
 
-            verifyContactDetails(firstName, lastName, email, phoneNumber, methodOfContact, birthDate);
+            verifyContactDetails(firstName, lastName, email, phoneNumber, methodOfContact);
 
             clickOnAddressesTab();
             clickOnAccountSettingsTab();
 
-            verifyContactDetails(firstName, lastName, email, phoneNumber, methodOfContact, birthDate);
+            verifyContactDetails(firstName, lastName, email, phoneNumber, methodOfContact);
 
+            clickEditUnderContact();
+
+            enterContact_FirstName(curFirstName);
+            enterContact_LastName(curLastName);
+            enterContact_Email(curEmail);
+            enterContact_PhoneNumber(curPhoneNumber);
+            enterContact_MethodOfContact(curMethodOfContact);
+
+            clickOnSaveChangesButton();
 
         } catch (Exception e) {
             testStepErrorLog("Failed to edit contact form and verify");
@@ -636,26 +675,35 @@ public class MyAccountPage extends SeleniumActions {
         }
     }
 
-    public void verifyContactDetails(String firstName,  String lastName, String email, String phoneNumber, String methodOfContact, String birthDate) {
+    public void verifyContactDetails(String firstName,  String lastName, String email, String phoneNumber, String methodOfContact) {
         testStepStartLog("Verifying Contact Details");
         try {
+            Thread.sleep(5000);
+            waitForElementToBeVisible("//div[@data-testid='account-card-contact']");
             if(!Objects.equals(getElementText("(//div[@data-testid='account-label-content'])[1]"), firstName)) {
                 testStepErrorLog("First name does not match expected value");
+                DriverManager.quitDriver();
+                Assert.fail();
             }
             if(!Objects.equals(getElementText("(//div[@data-testid='account-label-content'])[2]"), lastName)) {
                 testStepErrorLog("Last Name does not match expected value");
+                DriverManager.quitDriver();
+                Assert.fail();
             }
             if(!Objects.equals(getElementText("(//div[@data-testid='account-label-content'])[3]"), email)) {
                 testStepErrorLog("Email does not match expected value");
+                DriverManager.quitDriver();
+                Assert.fail();
             }
             if(!Objects.equals(getElementText("(//div[@data-testid='account-label-content'])[4]"), phoneNumber)) {
                 testStepErrorLog("Phone Number does not match expected value");
+                DriverManager.quitDriver();
+                Assert.fail();
             }
             if(!Objects.equals(getElementText("(//div[@data-testid='account-label-content'])[5]"), methodOfContact)) {
                 testStepErrorLog("Method of Contact does not match expected value");
-            }
-            if(!Objects.equals(getElementText("(//div[@data-testid='account-label-content'])[6]"), birthDate)) {
-                testStepErrorLog("BirthDate does not match expected value");
+                DriverManager.quitDriver();
+                Assert.fail();
             }
             testStepLog("Verified Contact Details Successfully");
         }  catch (Exception e) {

@@ -11,23 +11,20 @@ public class StampinTest {
         DriverManager.startDriver();
     }
 
-    @Test(enabled = false, priority = 1)
+    @Test(enabled = true, priority = 1)
     public static void happyPathNewCustomerTest() throws InterruptedException {
         SeleniumActions.initDriver();
         //Initial Manual Authentication Check
         //      Website is asking for 'Additional security check' must be done manually.
         Thread.sleep(20000);
 
-        //TEST START
         LandingPage landingPage = new LandingPage();
         landingPage.clickSignInButton();
-
 
         LoginPopup loginPopup = new LoginPopup();
         loginPopup.clickCreateAccountButton();
         loginPopup.fillNewCustomerForm();
         loginPopup.clickCreateAccountSubmitButton();
-
 
         RewardsPopup rewardsPopup = new RewardsPopup();
         rewardsPopup.clickMaybeLaterButton();
@@ -35,26 +32,22 @@ public class StampinTest {
 
         landingPage.clickHelloUserButton();
         landingPage.clickSignOutButton();
-
     }
 
-    @Test(enabled = false, priority = 2)
+    @Test(enabled = true, priority = 2)
     public static void newCustomerTestWithAddress() throws InterruptedException {
         SeleniumActions.initDriver();
         //Initial Manual Authentication Check
         //      Website is asking for 'Additional security check' must be done manually.
         Thread.sleep(20000);
 
-        //TEST START
         LandingPage landingPage = new LandingPage();
         landingPage.clickSignInButton();
-
 
         LoginPopup loginPopup = new LoginPopup();
         loginPopup.clickCreateAccountButton();
         loginPopup.fillNewCustomerForm();
         loginPopup.clickCreateAccountSubmitButton();
-
 
         RewardsPopup rewardsPopup = new RewardsPopup();
         rewardsPopup.clickMaybeLaterButton();
@@ -65,13 +58,9 @@ public class StampinTest {
 
         MyAccountPage myAccountPage = new MyAccountPage();
         myAccountPage.clickOnAddressesTab();
-
         myAccountPage.fillSubmitAndVerifyNewAddressForm();
-
         myAccountPage.clickUseMyShippingAddress();
         myAccountPage.verifyMailingAddressMatchesShippingAddress();
-
-        //DO MORE VALIDATIONS FOR ADDRESS
         myAccountPage.clickOnAccountSettingsTab();
         myAccountPage.clickEditUnderContact();
         myAccountPage.fillContactFormAndSave();
@@ -79,7 +68,7 @@ public class StampinTest {
         landingPage.clickHelloUserButton();
         landingPage.clickSignOutButton();
 
-        Thread.sleep(10000); //END
+        Thread.sleep(10000);
     }
 
     @Test(enabled = true, priority = 3)
@@ -94,29 +83,26 @@ public class StampinTest {
         //      Website is asking for 'Additional security check' must be done manually.
         Thread.sleep(20000);
 
-        //Sign In
         LandingPage landingPage = new LandingPage();
         landingPage.clickSignInButton();
+
         LoginPopup loginPopup = new LoginPopup();
         loginPopup.enterUserName(username);
         loginPopup.enterPassword(password);
         loginPopup.clickSignInButton();
 
-        //Edit Fields in Address & Settings
         landingPage.clickHelloUserButton();
         landingPage.clickAccountSettingButton();
 
         MyAccountPage myAccountPage = new MyAccountPage();
-        myAccountPage.clickEditUnderContact();
         myAccountPage.editContactFormSaveAndVerify();
-
         myAccountPage.clickOnAddressesTab();
         myAccountPage.editAddressSaveAndVerify();
 
         landingPage.clickHelloUserButton();
         landingPage.clickSignOutButton();
 
-        Thread.sleep(10000); //END
+        Thread.sleep(10000);
     }
 
     @AfterTest

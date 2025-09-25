@@ -1,14 +1,14 @@
 package SeleniumSetup;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 public class SeleniumActions{
+
     public static void initDriver() {
         DriverManager.getDriver().manage().window().maximize();
         DriverManager.getDriver().get("https://www.stampinup.com");
@@ -61,6 +61,9 @@ public class SeleniumActions{
 
     public static void clearElementText(String xpath) {
         WebElement element = DriverManager.getDriver().findElement(By.xpath(xpath));
-        element.clear();
+        while(!element.getAttribute("value").isEmpty()){
+            element.sendKeys(Keys.BACK_SPACE);
+        }
+        element.sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
     }
 }

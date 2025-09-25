@@ -3,13 +3,10 @@ package Components;
 import SeleniumSetup.DriverManager;
 import SeleniumSetup.SeleniumActions;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class RewardsPopup extends SeleniumActions {
     private String getStartedButtonXPath = "(//*[text()='Join Stampin’ Rewards!']/../../..//span)[1]";
     private String maybeLaterButtonXPath = "(//*[text()='Join Stampin’ Rewards!']/../../..//span)[2]";
-
     private String xButtonXPath = "(//*[text()='You opted out of Stampin’ Rewards. Sign up again at any time ']/../../..//button)[2]";
     private String closeButtonXPath = "(//*[text()='You opted out of Stampin’ Rewards. Sign up again at any time ']/../../..//button)[1]";
 
