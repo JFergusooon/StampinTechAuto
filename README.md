@@ -4,6 +4,7 @@
 TC000001 - happyPathNewCustomerTest():
 
 Test Data:
+
 firstname: any
 lastname: any
 email: any
@@ -13,6 +14,8 @@ address: any
 
 
 Steps to Test:
+
+
 Navigate to stampinup.com
 
 Click “Sign In” Button in top right corner.
@@ -39,7 +42,10 @@ email: any
 phoneNumber: any
 address: any
 
+
 Steps to Test:
+
+
 Navigate to Url “Stampinup.com”
 
 Click “Sign In” Button in top right corner.
@@ -96,15 +102,16 @@ In dropdown Menu, select ‘Sign Out'
 
 TC000003 - existingCustomerTest():
 Test Data:
+
 username: jfergusooon@gmail.com
 password: Jeffrey57!
 email: jfergusooon@gmail.com
 phoneNumber: 385-499-1578
 address: 204 W 2100 S APT A307, Salt Lake City, UT 84115
 
+
+
 Steps to Test:
-
-
 
 
 Go to Url “Stampinup.com”
