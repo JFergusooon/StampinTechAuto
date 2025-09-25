@@ -10,8 +10,19 @@ address: any
 
 
 Steps to Test:
+Navigate to stampinup.com
 
+Click “Sign In” Button in top right corner.
 
+Click ‘Create New Account’ button below sign in form.
+
+Fill In Form Using Random Data and click Create New Account
+
+Close Reward Popup when prompted
+
+In top Right, Select user’s firstname to open dropdown menu
+
+In dropdown Menu, select ‘Sign Out'
 
 
 
@@ -27,7 +38,19 @@ phoneNumber: any
 address: any
 
 Steps to Test:
+Navigate to Url “Stampinup.com”
 
+Click “Sign In” Button in top right corner.
+
+Click ‘Create New Account’ button below sign in form.
+
+Fill In Form Using Random Data and click Create New Account
+
+Close Reward Popup when prompted
+
+In top Right, Select user’s firstname to open dropdown menu
+
+In dropdown Menu, select ‘Sign Out'
 
 
 ====================================================================================================
@@ -42,3 +65,52 @@ phoneNumber: 385-499-1578
 address: 204 W 2100 S APT A307, Salt Lake City, UT 84115
 
 Steps to Test:
+Navigate to Url “Stampinup.com”
+
+Click “Sign In” Button in top right corner.
+
+Click ‘Create New Account’ button below sign in form.
+
+Verify Form Appears and Sign in Form disappears
+
+Fill In Form Using Random Data and click Create New Account
+
+Close Reward Popup when prompted
+
+In top Right, Select user’s firstname to open dropdown menu
+
+In Dropdown, select ‘Account Settings’ Tab
+
+Verify Account Settings Page Appears.
+
+Click Addresses Tab
+
+Verify Address Page Appears.
+
+Verify No Previous Address appears and new Address form is present
+
+Fill the Form with Data and click Save
+
+Verify the Data entered is Saved correctly by appearing in the 'default shipping address’ box
+
+Under the 'Default Mailing Address’ box select the option ‘ Use my shipping address’
+
+Verify Shipping Address is correctly copied to the Mailing Address.
+
+On Left Navigation Bar, select Account Settings Tab
+
+Verify Correct Screen appears.
+
+Under Contact Section, click Edit Option
+
+Verify Edit Form Appears
+
+Enter Phone Number, Method of Contact, and BirthDate
+
+Click Save Changes Button
+
+Verify The Data entered is saved correctly by appearing in the ‘Contact’ box
+
+In top Right, Select user’s firstname to open dropdown menu
+
+In dropdown Menu, select ‘Sign Out'
