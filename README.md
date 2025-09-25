@@ -1,1 +1,163 @@
 <img width="660" height="289" alt="Results" src="https://github.com/user-attachments/assets/eb5b2b1a-2539-4f2a-900c-d50c567028b8" />
+TC000001 - happyPathNewCustomerTest():
+
+Test Data:
+firstname: any
+lastname: any
+email: any
+phoneNumber: any
+address: any
+
+
+
+Steps to Test:
+Navigate to stampinup.com
+
+Click “Sign In” Button in top right corner.
+
+Click ‘Create New Account’ button below sign in form.
+
+Fill In Form Using Random Data and click Create New Account
+
+Close Reward Popup when prompted
+
+In top Right, Select user’s firstname to open dropdown menu
+
+In dropdown Menu, select ‘Sign Out'
+
+
+
+====================================================================================================
+====================================================================================================
+====================================================================================================
+TC000002 - newCustomerTestWithAddress():
+Test Data:
+firstname: any
+lastname: any
+email: any
+phoneNumber: any
+address: any
+
+Steps to Test:
+Navigate to Url “Stampinup.com”
+
+Click “Sign In” Button in top right corner.
+
+Click ‘Create New Account’ button below sign in form.
+
+Verify Form Appears and Sign in Form disappears
+
+Fill In Form Using Random Data and click Create New Account
+
+Close Reward Popup when prompted
+
+In top Right, Select user’s firstname to open dropdown menu
+
+In Dropdown, select ‘Account Settings’ Tab
+
+Verify Account Settings Page Appears.
+
+Click Addresses Tab
+
+Verify Address Page Appears.
+
+Verify No Previous Address appears and new Address form is present
+
+Fill the Form with Data and click Save
+
+Verify the Data entered is Saved correctly by appearing in the 'default shipping address’ box
+
+Under the 'Default Mailing Address’ box select the option ‘ Use my shipping address’
+
+Verify Shipping Address is correctly copied to the Mailing Address.
+
+On Left Navigation Bar, select Account Settings Tab
+
+Verify Correct Screen appears.
+
+Under Contact Section, click Edit Option
+
+Verify Edit Form Appears
+
+Enter Phone Number, Method of Contact, and BirthDate
+
+Click Save Changes Button
+
+Verify The Data entered is saved correctly by appearing in the ‘Contact’ box
+
+In top Right, Select user’s firstname to open dropdown menu
+
+In dropdown Menu, select ‘Sign Out'
+
+
+====================================================================================================
+====================================================================================================
+====================================================================================================
+TC000003 - existingCustomerTest():
+Test Data:
+username: jfergusooon@gmail.com
+password: Jeffrey57!
+email: jfergusooon@gmail.com
+phoneNumber: 385-499-1578
+address: 204 W 2100 S APT A307, Salt Lake City, UT 84115
+
+Steps to Test:
+
+
+
+
+Go to Url “Stampinup.com”
+
+Click “Sign In” Button in top right corner.
+
+Enter Username and Password
+
+Click Sign In Button
+
+In top Right, Select user’s firstname to open dropdown menu
+
+In Dropdown, select ‘Account Settings’ Tab
+
+Verify Account Settings Page Appears
+
+Under Contact Section, select ‘Edit’ button
+
+Verify Edit Form Appears, populated with the data from the overview screen.
+
+Edit Each Form Input to another value, save changes.
+
+Verify Data Entered shows correctly in Contact section, replacing previous Data
+
+Click On Addresses Tab, then Click Back to Account Settings Tab
+
+Verify Data Entered has persisted after changing pages.
+
+Under Contact Section, select ‘Edit’ button
+
+Change each value back to its starting value, save changes.
+
+Click on ‘Addresses’ Tab, Verify Addresses Screen appears
+
+Under ‘Default Shipping Address’ box, click Edit button.
+
+Verify Edit Form Appears.
+
+Clear each field in the form so they are completely blank.
+
+Enter temporary Data into the address and click Save.
+
+Verify the data entered shows correctly in the Default Shipping Address Overfield box
+
+Click On Account Settings Tab, then Back to Addresses
+
+ verify the data has persisted through page change.
+
+Click ‘Edit’ button under default shipping address.
+
+Clear the form and enter the original data, save changes.
+
+Verify the data entered shows correctly in the Default Shipping Address Overfield box
+
+In top Right, Select user’s firstname to open dropdown menu
+
+In dropdown Menu, select ‘Sign Out' 
